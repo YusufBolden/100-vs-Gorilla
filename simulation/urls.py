@@ -1,6 +1,8 @@
+# simulation/urls.py
 from django.urls import path
-from .views import SimulationResultListView
+from .views import SimulationResultList, SimulationResultCreate
 
 urlpatterns = [
-    path('results', SimulationResultListView.as_view, name='simulation-results'),
+    path('results/', SimulationResultList.as_view(), name='simulation-results'),
+    path('results/create/', SimulationResultCreate.as_view(), name='simulation-create'),
 ]
