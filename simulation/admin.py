@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import SimulationResult
+
 @admin.register(SimulationResult)
 class SimulationResultAdmin(admin.ModelAdmin):
     list_display = (
@@ -11,3 +12,5 @@ class SimulationResultAdmin(admin.ModelAdmin):
         'estimated_outcome',
         'created_at',
     )
+    list_filter = ('human_team_strategy', 'estimated_outcome', 'created_at')
+    search_fields = ('scenario',)

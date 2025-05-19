@@ -10,7 +10,5 @@ class SimulationResult(models.Model):
     human_team_strategy = models.CharField(max_length=100, default='Unknown')
     estimated_outcome = models.CharField(max_length=100, default='Unknown')
 
-    result_details = models.TextField(blank=True, null=True)  # detailed logging or test support
-
     def __str__(self):
-        return f"Gorilla Strength: {self.gorilla_strength}, Outcome: {self.estimated_outcome}"
+        return f"{self.scenario} | Gorilla: {self.gorilla_strength} | Outcome: {self.estimated_outcome}"
