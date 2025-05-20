@@ -1,26 +1,20 @@
 import React from "react";
 
-const HealthBar = ({ gorillaHealth = 100, humanHealth = 100 }) => {
+const getHealthColor = (health) => {
+  if (health > 66) return "bg-green-500";
+  if (health > 30) return "bg-yellow-400";
+  return "bg-red-500";
+};
+
+const HealthBar = ({ health = 100 }) => {
+  const barColor = getHealthColor(health);
+
   return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <span className="block text-lg font-semibold mb-1">Gorilla</span>
-        <div className="w-full h-6 bg-red-900 rounded-full overflow-hidden shadow-inner">
-          <div
-            className="h-full bg-green-500 transition-all duration-300"
-            style={{ width: `${gorillaHealth}%` }}
-          />
-        </div>
-      </div>
-      <div>
-        <span className="block text-lg font-semibold mb-1">Humans</span>
-        <div className="w-full h-6 bg-red-900 rounded-full overflow-hidden shadow-inner">
-          <div
-            className="h-full bg-blue-500 transition-all duration-300"
-            style={{ width: `${humanHealth}%` }}
-          />
-        </div>
-      </div>
+    <div className="w-full h-6 bg-gray-700 rounded-full overflow-hidden shadow-inner">
+      <div
+        className={`h-full ${barColor} transition-all duration-300 ease-in-out`}
+        style={{ width: `${Math.max(0, Math.min(health, 100))}%` }}
+      />
     </div>
   );
 };

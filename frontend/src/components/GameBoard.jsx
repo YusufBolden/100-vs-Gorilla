@@ -17,7 +17,7 @@ const GameBoard = () => {
 
         {/* Health Bar */}
         <div className="w-full max-w-3xl">
-          <HealthBar />
+          <HealthBar health={100} />
         </div>
 
         {/* Game Area */}
