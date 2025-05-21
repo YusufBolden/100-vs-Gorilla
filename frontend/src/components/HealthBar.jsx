@@ -1,37 +1,33 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-const getHealthColor = (percent) => {
-  if (percent > 66) return "bg-green-500";
-  if (percent > 30) return "bg-yellow-400";
-  return "bg-red-500";
+const { div: MotionDiv } = motion;
+
+const getHealthColor = (health) => {
+  if (health > 66) return "bg-green-500";
+  if (health > 30) return "bg-yellow-500";
+  return "bg-red-600";
 };
 
-const HealthSegment = ({ label, current, max }) => {
-  const percent = Math.max(0, (current / max) * 100);
-  const color = getHealthColor(percent);
+const HealthBar = ({ label = "Gorilla", health = 100 }) => {
+  const width = `${health}%`;
+  const colorClass = getHealthColor(health);
 
   return (
-    <div className="mb-4">
-      <div className="flex justify-between text-sm mb-1">
-        <span className="font-bold">{label}</span>
-        <span>{current} / {max}</span>
-      </div>
-      <div className="w-full bg-gray-800 h-5 rounded-lg overflow-hidden">
+    <MotionDiv
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="w-full mb-4"
+    >
+      <div className="text-sm mb-1">{label}</div>
+      <div className="w-full h-6 bg-gray-800 rounded-full overflow-hidden shadow-inner">
         <div
-          className={`h-full ${color} transition-all duration-300 ease-in-out`}
-          style={{ width: `${percent}%` }}
+          className={`h-full ${colorClass} transition-all duration-500`}
+          style={{ width }}
         />
       </div>
-    </div>
-  );
-};
-
-const HealthBar = ({ gorillaHealth, gorillaMax, humanHealth, humanMax }) => {
-  return (
-    <div className="w-full">
-      <HealthSegment label="🦍 Gorilla" current={gorillaHealth} max={gorillaMax} />
-      <HealthSegment label="👥 Humans" current={humanHealth} max={humanMax} />
-    </div>
+    </MotionDiv>
   );
 };
 
