@@ -3,30 +3,21 @@ import { motion } from "framer-motion";
 
 const { div: MotionDiv } = motion;
 
-const getHealthColor = (health) => {
-  if (health > 66) return "bg-green-500";
-  if (health > 30) return "bg-yellow-500";
-  return "bg-red-600";
-};
-
-const HealthBar = ({ label = "Gorilla", health = 100 }) => {
-  const width = `${health}%`;
-  const colorClass = getHealthColor(health);
+const HealthBar = ({ health = 100 }) => {
+  let barColor = "bg-green-500";
+  if (health <= 30) barColor = "bg-red-500";
+  else if (health <= 66) barColor = "bg-yellow-500";
 
   return (
     <MotionDiv
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="w-full mb-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="w-full bg-gray-700 rounded-xl overflow-hidden shadow-lg"
     >
-      <div className="text-sm mb-1">{label}</div>
-      <div className="w-full h-6 bg-gray-800 rounded-full overflow-hidden shadow-inner">
-        <div
-          className={`h-full ${colorClass} transition-all duration-500`}
-          style={{ width }}
-        />
-      </div>
+      <MotionDiv
+        className={`h-6 transition-all duration-500 ${barColor}`}
+        style={{ width: `${health}%` }}
+      />
     </MotionDiv>
   );
 };

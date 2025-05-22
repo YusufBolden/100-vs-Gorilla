@@ -4,48 +4,36 @@ import { motion } from "framer-motion";
 const { button: MotionButton, div: MotionDiv } = motion;
 
 const Controls = () => {
-  const handleAttack = () => {
-    console.log("Attack strategy executed");
-    // TODO: Connect to backend API call
-  };
-
-  const handleAdvance = () => {
-    console.log("Advance strategy executed");
-    // TODO: Connect to backend API call
-  };
-
-  const handleSurround = () => {
-    console.log("Surround strategy executed");
-    // TODO: Connect to backend API call
-  };
+  const handleAttack = () => console.log("Attack action sent");
+  const handleAdvance = () => console.log("Advance action sent");
+  const handleSurround = () => console.log("Surround action sent");
 
   return (
     <MotionDiv
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex gap-4 flex-wrap justify-center"
     >
       <MotionButton
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9 }}
         onClick={handleAttack}
-        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-2xl shadow-lg transition duration-200"
+        className="bg-red-600 px-5 py-2 rounded-xl shadow-lg hover:bg-red-700 transition"
       >
         Attack
       </MotionButton>
 
       <MotionButton
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9 }}
         onClick={handleAdvance}
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-2xl shadow-lg transition duration-200"
+        className="bg-blue-600 px-5 py-2 rounded-xl shadow-lg hover:bg-blue-700 transition"
       >
         Advance
       </MotionButton>
 
       <MotionButton
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9 }}
         onClick={handleSurround}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-2xl shadow-lg transition duration-200"
+        className="bg-yellow-600 px-5 py-2 rounded-xl shadow-lg hover:bg-yellow-700 transition"
       >
         Surround
       </MotionButton>
