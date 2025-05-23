@@ -1,33 +1,32 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Card } from "./ui/card";
 
 const { div: MotionDiv } = motion;
 
 const HighScores = () => {
-  const dummyScores = [
-    { name: "Khiyah", score: 85 },
-    { name: "Bob", score: 78 },
-    { name: "Charlie", score: 64 },
-    { name: "Alice", score: 60 },
-    { name: "Jeff", score: 55 },
+  const scores = [
+    { player: "Player1", score: 120 },
+    { player: "Player2", score: 100 },
+    { player: "Player3", score: 80 },
   ];
 
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl shadow-lg text-white"
+      transition={{ duration: 0.5 }}
     >
-      <h2 className="text-2xl font-semibold mb-2">Top Scores</h2>
-      <ul>
-        {dummyScores.map((entry, index) => (
-          <li key={index} className="flex justify-between py-1">
-            <span>{entry.name}</span>
-            <span>{entry.score}</span>
-          </li>
-        ))}
-      </ul>
+      <Card className="p-4 mt-4 bg-opacity-30">
+        <h2 className="text-xl font-semibold mb-2">High Scores</h2>
+        <ul>
+          {scores.map((entry, index) => (
+            <li key={index}>
+              {entry.player}: {entry.score}
+            </li>
+          ))}
+        </ul>
+      </Card>
     </MotionDiv>
   );
 };

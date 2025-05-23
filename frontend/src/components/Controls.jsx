@@ -1,31 +1,26 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Button } from "./ui/button";
 
-const { button: MotionButton, div: MotionDiv } = motion;
+const { div: MotionDiv } = motion;
 
-const Controls = ({ onAttack }) => {
+const Controls = () => {
+  const handleAction = (action) => {
+    console.log(`Action triggered: ${action}`);
+    // TODO: Backend integration
+  };
+
   return (
     <MotionDiv
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="grid grid-cols-3 gap-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.4 }}
+      className="mt-6 flex flex-wrap gap-4 justify-center"
     >
-      {[
-        { label: "Attack", value: "strike" },
-        { label: "Advance", value: "rush" },
-        { label: "Surround", value: "surround" },
-      ].map((btn) => (
-        <MotionButton
-          key={btn.value}
-          whileTap={{ scale: 0.9 }}
-          whileHover={{ scale: 1.05 }}
-          className="px-6 py-3 bg-white bg-opacity-30 rounded-xl shadow text-white hover:bg-opacity-50 transition"
-          onClick={() => onAttack(btn.value)}
-        >
-          {btn.label}
-        </MotionButton>
-      ))}
+      <Button onClick={() => handleAction("attack")}>Attack</Button>
+      <Button onClick={() => handleAction("advance")}>Advance</Button>
+      <Button onClick={() => handleAction("surround")}>Surround</Button>
+      <Button onClick={() => handleAction("sneak")}>Sneak</Button>
     </MotionDiv>
   );
 };

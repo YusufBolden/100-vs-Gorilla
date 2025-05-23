@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 import HealthBar from "./HealthBar";
 import HighScores from "./HighScores";
 import HowToPlayModal from "./HowToPlayModal";
 import Controls from "./Controls";
+import GorillaCharacter from "./GorillaCharacter";
 
-const { div: MotionDiv } = motion;
+const { div: MotionDiv, h1: MotionH1 } = motion;
 
 const GameBoard = () => {
-  const [gorillaHealth, setGorillaHealth] = useState(100);
-
-  const handleAttack = (strategy) => {
-    let damage = 10;
-    if (strategy === "rush") damage = 15;
-    if (strategy === "sneak") damage = 20;
-    if (strategy === "surround") damage = 12;
-    setGorillaHealth((prev) => Math.max(prev - damage, 0));
-  };
-
   return (
     <MotionDiv
       initial={{ opacity: 0 }}
@@ -29,34 +22,39 @@ const GameBoard = () => {
 
       <div className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-white">
         {/* Header */}
-        <motion.div
-          initial={{ scale: 0.8 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full flex justify-between items-center"
-        >
-          <h1 className="text-4xl font-bold drop-shadow-lg">Gorilla Showdown</h1>
+        <div className="w-full flex justify-between items-center">
+          <MotionH1
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold drop-shadow-lg"
+          >
+            Gorilla Showdown
+          </MotionH1>
           <HowToPlayModal />
-        </motion.div>
+        </div>
 
         {/* Health Bar */}
         <div className="w-full max-w-3xl">
-          <HealthBar health={gorillaHealth} />
+          <HealthBar />
         </div>
 
         {/* Game Area */}
-        <div className="flex-1 w-full max-w-5xl flex items-center justify-center">
-          <p className="text-xl italic opacity-80">Gorilla is fighting back...</p>
-        </div>
+        <Card className="flex-1 w-full max-w-5xl flex items-center justify-center mt-4 p-6 bg-opacity-30">
+          <GorillaCharacter />
+        </Card>
 
         {/* Controls */}
-        <div className="w-full max-w-xl">
-          <Controls onAttack={handleAttack} />
-        </div>
+        <Controls />
 
         {/* Footer */}
         <div className="w-full max-w-4xl">
           <HighScores />
+        </div>
+
+        {/* Demo usage of Button */}
+        <div className="mt-4">
+          <Button>Demo Button</Button>
         </div>
       </div>
     </MotionDiv>
