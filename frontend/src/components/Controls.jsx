@@ -1,27 +1,36 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
+import { useGame } from "../context/useGame";
 
-const { div: MotionDiv } = motion;
+const { button: MotionButton } = motion;
 
 const Controls = () => {
-  const handleAction = (action) => {
-    console.log(`Action triggered: ${action}`);
-    // TODO: Backend integration
-  };
+  const { attack, surround, sneak } = useGame();
 
   return (
-    <MotionDiv
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.4 }}
-      className="mt-6 flex flex-wrap gap-4 justify-center"
-    >
-      <Button onClick={() => handleAction("attack")}>Attack</Button>
-      <Button onClick={() => handleAction("advance")}>Advance</Button>
-      <Button onClick={() => handleAction("surround")}>Surround</Button>
-      <Button onClick={() => handleAction("sneak")}>Sneak</Button>
-    </MotionDiv>
+    <div className="flex gap-4 justify-center">
+      <MotionButton
+        whileTap={{ scale: 0.95 }}
+        onClick={attack}
+        className="bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700 transition"
+      >
+        Attack
+      </MotionButton>
+      <MotionButton
+        whileTap={{ scale: 0.95 }}
+        onClick={surround}
+        className="bg-yellow-500 text-white px-4 py-2 rounded shadow hover:bg-yellow-600 transition"
+      >
+        Surround
+      </MotionButton>
+      <MotionButton
+        whileTap={{ scale: 0.95 }}
+        onClick={sneak}
+        className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition"
+      >
+        Sneak
+      </MotionButton>
+    </div>
   );
 };
 

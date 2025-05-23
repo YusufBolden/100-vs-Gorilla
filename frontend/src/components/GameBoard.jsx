@@ -1,62 +1,41 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Card } from "./ui/card";
-import { Button } from "./ui/button";
+import { useGame } from "../context/useGame";
+import Controls from "./Controls";
 import HealthBar from "./HealthBar";
 import HighScores from "./HighScores";
 import HowToPlayModal from "./HowToPlayModal";
-import Controls from "./Controls";
 import GorillaCharacter from "./GorillaCharacter";
 
-const { div: MotionDiv, h1: MotionH1 } = motion;
+const { div: MotionDiv } = motion;
 
 const GameBoard = () => {
+  const { gameState } = useGame();
+
   return (
     <MotionDiv
+      className="min-h-screen flex flex-col items-center justify-center bg-jungle bg-cover bg-center p-4 gap-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="relative w-full h-screen bg-[url('/assets/jungle-background.jpg')] bg-cover bg-center"
     >
-      <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-0" />
+      <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg scale-100 hover:scale-105 transition-transform">
+        Gorilla Showdown
+      </h1>
 
-      <div className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-white">
-        {/* Header */}
-        <div className="w-full flex justify-between items-center">
-          <MotionH1
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl font-bold drop-shadow-lg"
-          >
-            Gorilla Showdown
-          </MotionH1>
-          <HowToPlayModal />
-        </div>
+      <GorillaCharacter />
 
-        {/* Health Bar */}
-        <div className="w-full max-w-3xl">
-          <HealthBar />
-        </div>
+      <p className="text-white text-lg drop-shadow">
+        Gorilla Health: {gameState.health}%
+      </p>
 
-        {/* Game Area */}
-        <Card className="flex-1 w-full max-w-5xl flex items-center justify-center mt-4 p-6 bg-opacity-30">
-          <GorillaCharacter />
-        </Card>
+      <HealthBar />
 
-        {/* Controls */}
-        <Controls />
+      <Controls />
 
-        {/* Footer */}
-        <div className="w-full max-w-4xl">
-          <HighScores />
-        </div>
+      <HighScores />
 
-        {/* Demo usage of Button */}
-        <div className="mt-4">
-          <Button>Demo Button</Button>
-        </div>
-      </div>
+      <HowToPlayModal />
     </MotionDiv>
   );
 };

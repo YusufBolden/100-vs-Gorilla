@@ -1,32 +1,25 @@
 import React from "react";
+import { useGame } from "../context/useGame";
 import { motion } from "framer-motion";
-import { Card } from "./ui/card";
 
 const { div: MotionDiv } = motion;
 
 const HighScores = () => {
-  const scores = [
-    { player: "Player1", score: 120 },
-    { player: "Player2", score: 100 },
-    { player: "Player3", score: 80 },
-  ];
+  const { highScores } = useGame();
 
   return (
     <MotionDiv
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.3, duration: 0.5 }}
+      className="bg-white/10 text-white p-4 rounded shadow w-full max-w-sm"
     >
-      <Card className="p-4 mt-4 bg-opacity-30">
-        <h2 className="text-xl font-semibold mb-2">High Scores</h2>
-        <ul>
-          {scores.map((entry, index) => (
-            <li key={index}>
-              {entry.player}: {entry.score}
-            </li>
-          ))}
-        </ul>
-      </Card>
+      <h2 className="text-xl font-semibold mb-2">High Scores</h2>
+      <ul className="list-decimal list-inside">
+        {highScores.map((score, idx) => (
+          <li key={idx}>{score}</li>
+        ))}
+      </ul>
     </MotionDiv>
   );
 };

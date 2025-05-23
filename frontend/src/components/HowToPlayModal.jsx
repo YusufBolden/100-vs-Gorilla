@@ -1,36 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
 
 const { div: MotionDiv } = motion;
 
 const HowToPlayModal = () => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <>
-      <Button onClick={() => setOpen(true)}>How to Play</Button>
-
-      {open && (
-        <MotionDiv
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-        >
-          <div className="bg-white text-black p-6 rounded-lg max-w-md w-full relative">
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-2 right-2 text-xl"
-            >
-              ✖
-            </button>
-            <h2 className="text-2xl font-bold mb-2">How to Play</h2>
-            <p>Press buttons to choose actions. Win by defeating the gorilla!</p>
-          </div>
-        </MotionDiv>
-      )}
-    </>
+    <MotionDiv
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, duration: 0.5 }}
+      className="bg-white/10 text-white p-4 rounded shadow w-full max-w-md text-center"
+    >
+      <h2 className="text-xl font-bold mb-2">How to Play</h2>
+      <p>
+        Use the buttons to choose your strategy: Attack, Surround, or Sneak.
+        Each action impacts the battle differently. Reduce the Gorilla’s health
+        to 0 to win!
+      </p>
+    </MotionDiv>
   );
 };
 
