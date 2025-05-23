@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import HealthBar from "./HealthBar";
 import HighScores from "./HighScores";
@@ -8,6 +8,16 @@ import Controls from "./Controls";
 const { div: MotionDiv } = motion;
 
 const GameBoard = () => {
+  const [gorillaHealth, setGorillaHealth] = useState(100);
+
+  const handleAttack = (strategy) => {
+    let damage = 10;
+    if (strategy === "rush") damage = 15;
+    if (strategy === "sneak") damage = 20;
+    if (strategy === "surround") damage = 12;
+    setGorillaHealth((prev) => Math.max(prev - damage, 0));
+  };
+
   return (
     <MotionDiv
       initial={{ opacity: 0 }}
@@ -19,25 +29,29 @@ const GameBoard = () => {
 
       <div className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-white">
         {/* Header */}
-        <MotionDiv
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.6 }}
           className="w-full flex justify-between items-center"
         >
           <h1 className="text-4xl font-bold drop-shadow-lg">Gorilla Showdown</h1>
           <HowToPlayModal />
-        </MotionDiv>
+        </motion.div>
 
         {/* Health Bar */}
         <div className="w-full max-w-3xl">
-          <HealthBar />
+          <HealthBar health={gorillaHealth} />
         </div>
 
         {/* Game Area */}
-        <div className="flex-1 w-full max-w-5xl flex flex-col items-center justify-center gap-4">
-          <p className="text-xl italic opacity-80">Game characters and actions go here...</p>
-          <Controls />
+        <div className="flex-1 w-full max-w-5xl flex items-center justify-center">
+          <p className="text-xl italic opacity-80">Gorilla is fighting back...</p>
+        </div>
+
+        {/* Controls */}
+        <div className="w-full max-w-xl">
+          <Controls onAttack={handleAttack} />
         </div>
 
         {/* Footer */}

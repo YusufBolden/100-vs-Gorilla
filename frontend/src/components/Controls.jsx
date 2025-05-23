@@ -3,40 +3,29 @@ import { motion } from "framer-motion";
 
 const { button: MotionButton, div: MotionDiv } = motion;
 
-const Controls = () => {
-  const handleAttack = () => console.log("Attack action sent");
-  const handleAdvance = () => console.log("Advance action sent");
-  const handleSurround = () => console.log("Surround action sent");
-
+const Controls = ({ onAttack }) => {
   return (
     <MotionDiv
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="flex gap-4 flex-wrap justify-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="grid grid-cols-3 gap-4"
     >
-      <MotionButton
-        whileTap={{ scale: 0.9 }}
-        onClick={handleAttack}
-        className="bg-red-600 px-5 py-2 rounded-xl shadow-lg hover:bg-red-700 transition"
-      >
-        Attack
-      </MotionButton>
-
-      <MotionButton
-        whileTap={{ scale: 0.9 }}
-        onClick={handleAdvance}
-        className="bg-blue-600 px-5 py-2 rounded-xl shadow-lg hover:bg-blue-700 transition"
-      >
-        Advance
-      </MotionButton>
-
-      <MotionButton
-        whileTap={{ scale: 0.9 }}
-        onClick={handleSurround}
-        className="bg-yellow-600 px-5 py-2 rounded-xl shadow-lg hover:bg-yellow-700 transition"
-      >
-        Surround
-      </MotionButton>
+      {[
+        { label: "Attack", value: "strike" },
+        { label: "Advance", value: "rush" },
+        { label: "Surround", value: "surround" },
+      ].map((btn) => (
+        <MotionButton
+          key={btn.value}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          className="px-6 py-3 bg-white bg-opacity-30 rounded-xl shadow text-white hover:bg-opacity-50 transition"
+          onClick={() => onAttack(btn.value)}
+        >
+          {btn.label}
+        </MotionButton>
+      ))}
     </MotionDiv>
   );
 };
