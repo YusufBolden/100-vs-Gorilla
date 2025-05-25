@@ -1,42 +1,29 @@
 import React from "react";
-import { motion } from "framer-motion";
 import useGame from "../context/useGame";
-import Controls from "./Controls";
-import HealthBar from "./HealthBar";
-import HighScores from "./HighScores";
-import HowToPlayModal from "./HowToPlayModal";
-import GorillaCharacter from "./GorillaCharacter";
-
-const { div: MotionDiv } = motion;
 
 const GameBoard = () => {
-  const { gameState } = useGame();
+  const { gorillaHealth, humanHealth, updateHealth } = useGame();
+
+  const attack = () => {
+    const damage = Math.floor(Math.random() * 10) + 5;
+    const target = Math.random() < 0.5 ? "gorilla" : "human";
+    updateHealth(target, damage);
+  };
 
   return (
-    <MotionDiv
-      className="min-h-screen flex flex-col items-center justify-center bg-jungle bg-cover bg-center p-4 gap-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg scale-100 hover:scale-105 transition-transform">
-        Gorilla Showdown
-      </h1>
-
-      <GorillaCharacter />
-
-      <p className="text-white text-lg drop-shadow">
-        Gorilla Health: {gameState.health}%
-      </p>
-
-      <HealthBar />
-
-      <Controls />
-
-      <HighScores />
-
-      <HowToPlayModal />
-    </MotionDiv>
+    <div className="flex flex-col items-center gap-4">
+      <h2 className="text-2xl font-bold">Click to Attack!</h2>
+      <button
+        onClick={attack}
+        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl"
+      >
+        Attack
+      </button>
+      <div className="text-white mt-4">
+        <p>Gorilla Health: {gorillaHealth}%</p>
+        <p>Human Health: {humanHealth}%</p>
+      </div>
+    </div>
   );
 };
 
