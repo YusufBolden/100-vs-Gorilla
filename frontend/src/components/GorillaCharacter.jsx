@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useGame } from "../context/useGame";
+import useGame from "../context/useGame";
 
 const { img: MotionImg } = motion;
 

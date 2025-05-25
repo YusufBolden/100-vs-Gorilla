@@ -1,5 +1,5 @@
 import React from "react";
-import { useGame } from "../context/useGame";
+import useGame from "../context/useGame";
 
 const HealthBar = () => {
   const { gameState } = useGame();

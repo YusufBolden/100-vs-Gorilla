@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useGame } from "../context/useGame";
+import useGame from "../context/useGame";
 import Controls from "./Controls";
 import HealthBar from "./HealthBar";
 import HighScores from "./HighScores";
